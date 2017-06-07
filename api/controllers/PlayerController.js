@@ -6,9 +6,8 @@ const Player = require('../services').PlayerService
 module.exports = {
 
   getBalance: (request, reply) => {
-    console.log(request.query.playerId)
     Player.getBalance(request.query.playerId)
-      .then(rows=>{return reply(rows).code(200)})
+      .then(rows=>{return reply(rows[0]).code(200)})
       .catch(err=>{reply(err)})
   },
 
@@ -21,5 +20,7 @@ module.exports = {
     Player.fundPoints(request.query.playerId, request.query.points)
         .then(rows=>{return reply().code(200)})
         .catch(err=>{reply(err)})
-  }
+  },
+
+
 }
