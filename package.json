@@ -1,0 +1,16 @@
+{
+  "name": "social_tournament_service",
+  "author": {
+    "name": "Artem Vladimirov",
+    "email": "artem.vladimirov@gmail.com"
+  },
+  "dependencies": {
+    "boom": "^5.1.0",
+    "hapi": "^16.4.1",
+    "joi": "^10.5.2",
+    "promise-mysql": "^3.0.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
