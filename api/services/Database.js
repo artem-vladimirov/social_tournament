@@ -2,22 +2,27 @@
 
 const server = require('../../server')
 
+/**
+ * Database connection service
+ * @type {{query: ((p1:String)), getConnection: (())}}
+ */
 module.exports = {
 
+  /**
+   * Performs database query using connection directly from pool. Returns query result as Promise
+   * @param {String} query
+   * @returns {Promise}
+   */
   query: (query) => {
-    return new Promise((resolve, reject) => {
-      server.app.pool.query(query)
-          .then(result=>{resolve(result)})
-          .catch(err=>{reject(err)})
-    })
+    return server.app.pool.query(query)
   },
 
+  /**
+   * Returns new connection from pool to perform operations with lock
+   * @returns {Promise}
+   */
   getConnection: () => {
     return server.app.pool.getConnection()
-  },
-
-  beginTransaction: () => {
-    return server.app.pool.beginTransaction()
   }
 
 }

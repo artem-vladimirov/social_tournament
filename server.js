@@ -64,10 +64,10 @@ function prepareDB() {
     server.services.PlayerService.createPlayerTable(),
     server.services.TournamentService.createTournamentTable()
   ])
-      .then(() => {
-        console.log('database prepared')
-      }, err => { throw err })
-      .catch(err=>{console.log(err)})
+  .then(() => {
+    console.log('database prepared')
+  })
+  .catch(err=>{console.log(err)})
 }
 
 createConnection()

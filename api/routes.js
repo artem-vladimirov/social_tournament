@@ -73,6 +73,17 @@ module.exports = [
       method: 'POST',
       path:'/resultTournament',
       handler: controllers.TournamentController.resultTournament,
+      config: {
+        validate: {
+          payload: {
+            tournamentId: Joi.number().integer(),
+            winners: Joi.array().min(1).items(Joi.object().keys({
+              playerId: Joi.string(),
+              prize: Joi.number().integer()
+            }))
+          }
+        }
+      }
     }
 
 ]

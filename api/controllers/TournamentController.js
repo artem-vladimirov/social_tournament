@@ -1,32 +1,40 @@
 'use strict'
 
-const Boom = require('boom')
 const Tournament = require('../services').TournamentService
 
 module.exports = {
 
+  /**
+   * Calls tournament announce operations
+   * @param {Object} request
+   * @param {Object} reply
+   */
   announceTournament: (request, reply)=> {
     Tournament.announceTournament(request.query.tournamentId, request.query.deposit)
-      .then(() => {
-        return reply().code(200);
-      })
+      .then(() => { return reply().code(200) })
       .catch(err => { reply(err) })
   },
 
+  /**
+   * Calls tournament join operations
+   * @param {Object} request
+   * @param {Object} reply
+   */
   joinTournament: (request, reply)=> {
-    Tournament.joinTournament(request.query.tournamentId, request.query.playerId, request.query.backerId)
-        .then(rows => {
-          return reply(rows)
-        })
-        .catch(err => {
-          console.log(err)
-          return reply(err)
-        })
+    let backers = (typeof request.query.backerId === 'string' ? [request.query.backerId] : request.query.backerId)
+    Tournament.joinTournament(request.query.tournamentId, request.query.playerId, backers)
+        .then(() => { return reply().code(200) })
+        .catch(err => { return reply(err) })
   },
 
+  /**
+   * Calls tournament result calculations
+   * @param {Object} request
+   * @param {Object} reply
+   */
   resultTournament: (request, reply)=> {
-    Tournament.resultTournament().then(rows=>{
-      return reply(rows);
-    })
+    Tournament.resultTournament(request.payload.tournamentId, request.payload.winners)
+      .then(() => { reply().code(200) })
+      .catch((err) => { return reply(err) })
   }
 }
