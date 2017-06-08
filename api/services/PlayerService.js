@@ -85,7 +85,4 @@ module.exports = {
       .catch(err => conn.rollback()
         .then(() => Promise.reject(err)))
   }
-
-
-
 }

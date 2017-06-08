@@ -12,7 +12,7 @@ module.exports = {
   getBalance: (request, reply) => {
     Player.getBalance(request.query.playerId)
       .then(rows => { return reply(rows[0]).code(200) })
-      .catch(err => { reply(err) })
+      .catch(err => { return reply(err) })
   },
 
   /**
@@ -23,7 +23,7 @@ module.exports = {
   take: (request, reply) => {
     Player.takePoints(request.query.playerId, request.query.points)
         .then(() => { return reply().code(200) })
-        .catch(err => { reply(err) })
+        .catch(err => { return reply(err) })
   },
 
   /**
@@ -34,8 +34,6 @@ module.exports = {
   fund: (request, reply) => {
     Player.fundPoints(request.query.playerId, request.query.points)
         .then(() => { return reply().code(200) })
-        .catch(err => { reply(err) })
-  },
-
-
+        .catch(err => { return reply(err) })
+  }
 }

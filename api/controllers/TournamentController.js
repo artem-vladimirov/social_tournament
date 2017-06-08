@@ -12,7 +12,7 @@ module.exports = {
   announceTournament: (request, reply)=> {
     Tournament.announceTournament(request.query.tournamentId, request.query.deposit)
       .then(() => { return reply().code(200) })
-      .catch(err => { reply(err) })
+      .catch(err => { return reply(err) })
   },
 
   /**
@@ -34,7 +34,7 @@ module.exports = {
    */
   resultTournament: (request, reply)=> {
     Tournament.resultTournament(request.payload.tournamentId, request.payload.winners)
-      .then(() => { reply().code(200) })
+      .then(() => { return reply().code(200) })
       .catch((err) => { return reply(err) })
   }
 }

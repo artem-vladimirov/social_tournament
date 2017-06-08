@@ -5,24 +5,23 @@ const mysql = require('promise-mysql')
 const config = require('./config')
 const server = new Hapi.Server();
 
-server.connection({
-  host: '0.0.0.0',
-  port: 8000
-});
+server.connection(config.server.connection);
 
 
-//Applying all created routes
+/** Applying all created routes */
 const routes = require('./api/routes')
 for (let route in routes){
   server.route(routes[route]);
 }
 
-
-//Applying api to server
+/** Applying api to server */
 server.controllers = require('./api/controllers')
 server.services = require('./api/services')
 
 
+/**
+ * Establish database connection. Retry connection after 5 sec if failed
+ */
 function createConnection () {
   setTimeout(()=>{
     console.log('Trying to establish connection to db')
@@ -58,8 +57,10 @@ function startServer (pool) {
   })
 }
 
+/**
+ * Calls database initialization methods
+ */
 function prepareDB() {
-  //prepare db
   Promise.all([
     server.services.PlayerService.createPlayerTable(),
     server.services.TournamentService.createTournamentTable()
@@ -71,8 +72,6 @@ function prepareDB() {
 }
 
 createConnection()
-
-
 
 exports.app = server;
 
