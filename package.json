@@ -4,6 +4,10 @@
     "name": "Artem Vladimirov",
     "email": "artem.vladimirov@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artem-vladimirov/social_tournament.git"
+  },
   "dependencies": {
     "boom": "^5.1.0",
     "hapi": "^16.4.1",
@@ -11,6 +15,11 @@
     "promise-mysql": "^3.0.1"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "code": "^4.0.0",
+    "mocha": "^3.4.2"
   }
 }
