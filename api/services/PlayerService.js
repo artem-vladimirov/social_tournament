@@ -1,8 +1,8 @@
 'use strict'
 
-const db = require('./Database')
+const db    = require('./Database')
 const mysql = require('promise-mysql')
-const Boom = require('boom')
+const Boom  = require('boom')
 
 /**
  * Player database operations

@@ -1,6 +1,6 @@
 'use strict'
 
-const Joi = require('joi')
+const Joi         = require('joi')
 const controllers = require('./controllers')
 
 module.exports = [

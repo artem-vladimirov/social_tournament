@@ -10,6 +10,7 @@ module.exports = {
    * @param {Object} reply
    */
   getBalance: (request, reply) => {
+    console.log("request.query!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11", request.query)
     Player.getBalance(request.query.playerId)
       .then(rows => { return reply(rows[0]).code(200) })
       .catch(err => { return reply(err) })

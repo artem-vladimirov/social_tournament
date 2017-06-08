@@ -10,6 +10,7 @@ module.exports = {
     user: 'root',
     port: '3306',
     password: '',
-    database: 'social_tournament'
+    database: 'social_tournament',
+    connectTimeout: 60000
   }
 }
