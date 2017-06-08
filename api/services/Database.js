@@ -24,5 +24,4 @@ module.exports = {
   getConnection: () => {
     return server.app.pool.getConnection()
   }
-
 }
