@@ -3,7 +3,7 @@
 ## Install
 Download or clone
 ```
-github.com/artem-vladimirov/social_tournament`
+github.com/artem-vladimirov/social_tournament
 ```
 ## Run tests 
 ```
