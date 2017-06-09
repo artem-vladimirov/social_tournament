@@ -1,0 +1,20 @@
+version: '2'
+services:
+  web:
+    build: .
+    environment:
+      - NODE_ENV=test
+    ports:
+      - "80:8000"
+    links:
+      - db
+    command: ["node", "node_modules/.bin/mocha"]
+  db:
+    build: ./db
+    environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        MYSQL_DATABASE: social_tournament_test
+    expose:
+        - "3306"
+    ports:
+      - "3306:3306"

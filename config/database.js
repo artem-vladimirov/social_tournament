@@ -6,11 +6,29 @@
  */
 module.exports = {
   connection: {
-    host: 'db',
-    user: 'root',
-    port: '3306',
-    password: '',
-    database: 'social_tournament',
-    connectTimeout: 60000
+    dev: {
+      host: 'localhost',
+      user: 'root',
+      port: '3306',
+      password: '',
+      database: 'social_tournament',
+      connectTimeout: 60000
+    },
+    test: {
+      host: 'db',
+      user: 'root',
+      port: '3306',
+      password: '',
+      database: 'social_tournament_test',
+      connectTimeout: 60000
+    },
+    prod: {
+      host: 'db',
+      user: 'root',
+      port: '3306',
+      password: '',
+      database: 'social_tournament',
+      connectTimeout: 60000
+    }
   }
 }

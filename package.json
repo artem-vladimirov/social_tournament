@@ -12,14 +12,20 @@
     "boom": "^5.1.0",
     "hapi": "^16.4.1",
     "joi": "^10.5.2",
-    "promise-mysql": "^3.0.1"
+    "promise-mysql": "^3.0.1",
+    "code": "^4.0.0",
+    "mocha": "^3.4.2"
+  },
+  "devDependencies": {
+    "boom": "^5.1.0",
+    "hapi": "^16.4.1",
+    "joi": "^10.5.2",
+    "promise-mysql": "^3.0.1",
+    "code": "^4.0.0",
+    "mocha": "^3.4.2"
   },
   "scripts": {
     "start": "node server.js",
     "test": "mocha"
-  },
-  "devDependencies": {
-    "code": "^4.0.0",
-    "mocha": "^3.4.2"
   }
 }

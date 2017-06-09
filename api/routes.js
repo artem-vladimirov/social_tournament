@@ -1,13 +1,13 @@
 'use strict'
 
-const Joi         = require('joi')
-const controllers = require('./controllers')
+const Joi = require('joi')
 
-module.exports = [
+module.exports = (server) => {
+  return [
     {
       method: 'GET',
       path:'/take',
-      handler: controllers.PlayerController.take,
+      handler: server.controllers.PlayerController.take,
       config: {
         validate: {
           query: {
@@ -20,7 +20,7 @@ module.exports = [
     {
       method: 'GET',
       path:'/fund',
-      handler: controllers.PlayerController.fund,
+      handler: server.controllers.PlayerController.fund,
       config: {
         validate: {
           query: {
@@ -33,7 +33,7 @@ module.exports = [
     {
       method: 'GET',
       path:'/balance',
-      handler: controllers.PlayerController.getBalance,
+      handler: server.controllers.PlayerController.getBalance,
       config: {
         validate: {
           query: {
@@ -45,7 +45,7 @@ module.exports = [
     {
       method: 'GET',
       path:'/announceTournament',
-      handler: controllers.TournamentController.announceTournament,
+      handler: server.controllers.TournamentController.announceTournament,
       config: {
         validate: {
           query: {
@@ -58,7 +58,7 @@ module.exports = [
     {
       method: 'GET',
       path:'/joinTournament',
-      handler: controllers.TournamentController.joinTournament,
+      handler: server.controllers.TournamentController.joinTournament,
       config: {
         validate: {
           query: {
@@ -72,7 +72,7 @@ module.exports = [
     {
       method: 'POST',
       path:'/resultTournament',
-      handler: controllers.TournamentController.resultTournament,
+      handler: server.controllers.TournamentController.resultTournament,
       config: {
         validate: {
           payload: {
@@ -85,5 +85,6 @@ module.exports = [
         }
       }
     }
+  ]
+}
 
-]

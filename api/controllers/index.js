@@ -4,7 +4,9 @@
  * Application Controllers
  * @type {{PlayerController: *, TournamentController: *}}
  */
-module.exports = {
-  PlayerController: require('./PlayerController'),
-  TournamentController: require('./TournamentController')
+module.exports = (server) => {
+  return {
+    PlayerController: require('./PlayerController')(server),
+    TournamentController: require('./TournamentController')(server)
+  }
 }

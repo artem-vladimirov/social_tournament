@@ -2,10 +2,13 @@
 
 /**
  * Application Services
- * @type {{Database: *, PlayerService: *, TournamentService: *}}
+ * @param server
+ * @returns {{Database: {query, getConnection}, PlayerService: {createPlayerTable, getBalance, takePoints, fundPoints}, TournamentService: {createTournamentTable, announceTournament, joinTournament, resultTournament}}}
  */
-module.exports = {
-  Database: require('./Database'),
-  PlayerService: require('./PlayerService'),
-  TournamentService: require('./TournamentService')
+module.exports = (server) => {
+  return {
+    Database: require('./Database')(server),
+    PlayerService: require('./PlayerService')(server),
+    TournamentService: require('./TournamentService')(server)
+  }
 }

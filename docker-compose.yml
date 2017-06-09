@@ -2,6 +2,8 @@ version: '2'
 services:
   web:
     build: .
+    environment:
+      - NODE_ENV=prod
     ports:
       - "80:8000"
     links:

@@ -5,7 +5,17 @@
  */
 module.exports = {
   connection: {
-    host: '0.0.0.0',
-    port: 8000
+    dev: {
+      host: '0.0.0.0',
+      port: 8000
+    },
+    test: {
+      host: '0.0.0.0',
+      port: 8000
+    },
+    prod: {
+      host: '0.0.0.0',
+      port: 8000
+    }
   }
 }
