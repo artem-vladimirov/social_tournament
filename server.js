@@ -19,20 +19,32 @@ for (let route in routes){
   server.route(routes[route]);
 }
 
-/** CreateConnection and start server */
-mysql.createConnection(mysqlConnection)
-    .then(connection => {
-      server.pool = mysql.createPool(mysqlConnection)
-      return server.start()
-    })
-    .then(() => {
-      console.log('Server started on ', server.info.uri)
-      return server.services.Database.dropTables()
-    })
-    .then(() => Promise.all([
-      server.services.PlayerService.createPlayerTable(),
-      server.services.TournamentService.createTournamentTable()]))
-    .then(() => {console.log('Prepared table')})
+const startup = () => {
+
+
+
+  /** CreateConnection and start server */
+  mysql.createConnection(mysqlConnection)
+      .then(connection => {
+        server.pool = mysql.createPool(mysqlConnection)
+        return server.start()
+      })
+      .then(() => {
+        console.log('Server started on ', server.info.uri)
+        return server.services.Database.dropTables()
+      })
+      .then(() => Promise.all([
+        server.services.PlayerService.createPlayerTable(),
+        server.services.TournamentService.createTournamentTable()]))
+      .then(() => {console.log('Prepared table')})
+      .catch(() => {
+        setTimeout(() => {
+          startup()
+        }, 5000)
+      })
+}
+
+startup()
 
 exports.app = server;
 
