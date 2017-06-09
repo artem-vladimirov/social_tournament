@@ -10,7 +10,7 @@ const Boom  = require('boom')
 module.exports = (server) => {
   return {
     /**
-     * Creates MySQL table for `player` records
+     * Creates MySQL table for `player` records and adds 5 default players
      * @returns {Promise}
      */
     createPlayerTable: () => {

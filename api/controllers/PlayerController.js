@@ -9,12 +9,8 @@ module.exports = (server) => {
      */
     getBalance: (request, reply) => {
       server.services.PlayerService.getBalance(request.query.playerId)
-          .then(rows => {
-            return reply(rows[0]).code(200)
-          })
-          .catch(err => {
-            return reply(err)
-          })
+          .then(rows => reply(rows[0]).code(200))
+          .catch(err => reply(err))
     },
 
     /**
@@ -24,12 +20,8 @@ module.exports = (server) => {
      */
     take: (request, reply) => {
       server.services.PlayerService.takePoints(request.query.playerId, request.query.points)
-          .then(() => {
-            return reply().code(200)
-          })
-          .catch(err => {
-            return reply(err)
-          })
+          .then(() => reply().code(200))
+          .catch(err => reply(err))
     },
 
     /**
@@ -39,12 +31,8 @@ module.exports = (server) => {
      */
     fund: (request, reply) => {
       server.services.PlayerService.fundPoints(request.query.playerId, request.query.points)
-          .then(() => {
-            return reply().code(200)
-          })
-          .catch(err => {
-            return reply(err)
-          })
+          .then(() => reply().code(200))
+          .catch(err => reply(err))
     }
   }
 }
