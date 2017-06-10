@@ -54,13 +54,13 @@ module.exports = (server) => {
             .then(rows => {
               let balance = rows[0].balance - points
               if(balance <= 0)
-                return conn.rollback()
+                return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
                   .then(() => Promise.reject(Boom.badData('Balance cannot be zero or lower')))
               return conn.query('UPDATE player SET balance=' + mysql.escape(balance) + ' WHERE playerId='+mysql.escape(playerId))
             })
-            .then(() => conn.commit())
+            .then(() => conn.commit().then(() => server.services.Database.releaseConnection(conn)))
         })
-        .catch(err => conn.rollback().then(() => Promise.reject(err)))
+        .catch(err => conn.rollback().then(() => server.services.Database.releaseConnection(conn)).then(() => Promise.reject(err)))
     },
 
     /**
@@ -82,9 +82,9 @@ module.exports = (server) => {
             let balance = rows[0].balance + points
             return conn.query('UPDATE player SET balance=' + mysql.escape(balance) + ' WHERE playerId='+mysql.escape(playerId))
           })
-          .then(() => conn.commit())
+          .then(() => conn.commit().then(() => server.services.Database.releaseConnection(conn)))
           })
-        .catch(err => conn.rollback()
+        .catch(err => conn.rollback().then(() => server.services.Database.releaseConnection(conn))
           .then(() => Promise.reject(err)))
     }
   }

@@ -24,6 +24,13 @@ module.exports = (server) => {
     getConnection: () => {
       return server.pool.getConnection()
     },
+    /**
+     * Returns new connection from pool to perform operations with lock
+     * @returns {Promise}
+     */
+    releaseConnection: (connection) => {
+      return server.pool.releaseConnection(connection)
+    },
 
     /**
      * Removes tables

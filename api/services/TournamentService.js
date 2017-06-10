@@ -70,16 +70,16 @@ module.exports = (server) => {
           let tournament = rows[0]
           /** Check tournament */
           if(!tournament)
-            return conn.rollback()
+            return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
               .then(() => Promise.reject(Boom.badData('Tournament is not exist')))
           let participants = JSON.parse(tournament.participants) || []
           if(participants.find(((element)=>{return element.playerId === playerId}))) {
-            return conn.rollback()
+            return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
               .then(() => Promise.reject(Boom.badData('Player '+ playerId +' already joined this tournament')))
           }
           let winners = JSON.parse(tournament.winners)
           if(winners && winners.length > 0)
-            return conn.rollback()
+            return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
               .then(() => Promise.reject(Boom.badData('Tournament already have winners! You cannot join.')))
 
           return conn.query('SELECT * FROM player WHERE playerId IN (' + mysql.escape(payers) + ') FOR UPDATE')
@@ -96,12 +96,12 @@ module.exports = (server) => {
                 }
                 /** player cannot make his own contribution */
                 if(rows[r].playerId === playerId && rows[r].balance - amount <= 0) {
-                  return conn.rollback()
+                  return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
                     .then(()=>Promise.reject(Boom.badData('You have insufficient funds to join. call more backers')))
                 }
                 /** any of backers have not enough points */
                 if(rows[r].balance - amount <= 0) {
-                  return conn.rollback()
+                  return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
                     .then(()=>Promise.reject(Boom.badData('Player '+ rows[r].playerId + ' have insufficient funds')))
                 }
               }
@@ -121,8 +121,8 @@ module.exports = (server) => {
               return conn.query(mysql.format(query, values))
             })
         })
-        .then(() => conn.commit())
-        .catch(err => conn.rollback()
+        .then(() => conn.commit().then(() => server.services.Database.releaseConnection(conn)))
+        .catch(err => conn.rollback().then(() => server.services.Database.releaseConnection(conn))
           .then(() => Promise.reject(err)))
     },
 
@@ -146,15 +146,15 @@ module.exports = (server) => {
             /** Check tournament */
             let tournament = rows[0]
             if(!tournament)
-              return conn.rollback()
+              return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
                 .then(() => Promise.reject(Boom.badData('Tournament is not exist')))
             let pastWinners = JSON.parse(tournament.winners)
             if(pastWinners && pastWinners.length > 0)
-              return conn.rollback()
+              return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
                 .then(() => Promise.reject(Boom.badData('Tournament already have winners!')))
             let participants = JSON.parse(tournament.participants)
             if(!participants || participants.length === 0)
-              return conn.rollback()
+              return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
                 .then(() => Promise.reject(Boom.internal('tournament have no participants')))
 
             /** Array for winners update functions */
@@ -165,7 +165,7 @@ module.exports = (server) => {
 
               let winnerParticipant = participants.find((p) => { return p.playerId === winners[w].playerId })
               if(!winnerParticipant) {
-                return conn.rollback()
+                return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
                   .then(() => Promise.reject(Boom.badData(winners[w].playerId + ' player did not participate in the tournament ' + tournament.tournamentId)))
               }
               let backers = winnerParticipant.backers.slice(0)
@@ -191,8 +191,8 @@ module.exports = (server) => {
                 return conn.query(mysql.format(query, values))
               })
           })
-          .then(() => conn.commit())
-          .catch(err => conn.rollback()
+          .then(() => conn.commit().then(() => server.services.Database.releaseConnection(conn)))
+          .catch(err => conn.rollback().then(() => server.services.Database.releaseConnection(conn))
               .then(() => Promise.reject(err)))
     }
   }
