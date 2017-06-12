@@ -20,7 +20,7 @@ module.exports = (server) => {
           'ENGINE=InnoDB DEFAULT CHARSET=utf8;')
         .then(() => {
           let sql = 'INSERT IGNORE INTO `player` (playerId, balance) VALUES ?'
-          let values = [['p1', 0],['p2', 0],['p3', 0],['p4', 0],['p5', 0]]
+          let values = [['P1', 0],['P2', 0],['P3', 0],['P4', 0],['P5', 0]]
           return server.services.Database.query(mysql.format(sql, [values]))
         })
     },
@@ -34,6 +34,11 @@ module.exports = (server) => {
       if(!playerId)
         return Promise.reject(Boom.internal('No playerId provided'))
       return server.services.Database.query('SELECT * FROM player WHERE playerId=' + mysql.escape(playerId))
+          .then(players => {
+            if(!players || players.length === 0)
+              return Promise.reject(Boom.notFound('Player' + playerId + ' not found'))
+            return Promise.resolve(players)
+          })
     },
 
     /**
@@ -54,8 +59,7 @@ module.exports = (server) => {
             .then(rows => {
               let balance = rows[0].balance - points
               if(balance <= 0)
-                return conn.rollback().then(() => server.services.Database.releaseConnection(conn))
-                  .then(() => Promise.reject(Boom.badData('Balance cannot be zero or lower')))
+                return Promise.reject(Boom.badData('Balance cannot be zero or lower'))
               return conn.query('UPDATE player SET balance=' + mysql.escape(balance) + ' WHERE playerId='+mysql.escape(playerId))
             })
             .then(() => conn.commit().then(() => server.services.Database.releaseConnection(conn)))

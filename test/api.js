@@ -41,45 +41,45 @@ describe('Functional :: test tournament flow ', () => {
     it('ENSURE TESTS STATE', () => {
       return server.inject({
         method: 'GET',
-        url: '/balance?playerId=p1'
+        url: '/balance?playerId=P1'
       }).then((response) => {
-        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'p1', balance: 0 })
+        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'P1', balance: 0 })
       })
     });
 
     it('ENSURE TESTS STATE', () => {
       return server.inject({
         method: 'GET',
-        url: '/balance?playerId=p2'
+        url: '/balance?playerId=P2'
       }).then((response) => {
-        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'p2', balance: 0 })
+        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'P2', balance: 0 })
       })
     });
 
     it('ENSURE TESTS STATE', () => {
       return server.inject({
         method: 'GET',
-        url: '/balance?playerId=p3'
+        url: '/balance?playerId=P3'
       }).then((response) => {
-        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'p3', balance: 0 })
+        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'P3', balance: 0 })
       })
     });
 
     it('ENSURE TESTS STATE', () => {
       return server.inject({
         method: 'GET',
-        url: '/balance?playerId=p4'
+        url: '/balance?playerId=P4'
       }).then((response) => {
-        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'p4', balance: 0 })
+        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'P4', balance: 0 })
       })
     });
 
     it('ENSURE TESTS STATE', () => {
       return server.inject({
         method: 'GET',
-        url: '/balance?playerId=p5'
+        url: '/balance?playerId=P5'
       }).then((response) => {
-        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'p5', balance: 0 })
+        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'P5', balance: 0 })
       })
     });
 
@@ -91,46 +91,46 @@ describe('Functional :: test tournament flow ', () => {
 
   describe('Deposit points to players accounts ::', () => {
 
-    it('Deposit 300 to p1 ::', () => {
+    it('Deposit 300 to P1 ::', () => {
       return server.inject({
         method: 'GET',
-        url: '/fund?playerId=p1&points=300'
+        url: '/fund?playerId=P1&points=300'
       }).then((response) => {
         return Code.expect(response.statusCode).to.equal(200)
       })
     });
 
-    it('Deposit 300 to p2 ::', () => {
+    it('Deposit 300 to P2 ::', () => {
       return server.inject({
         method: 'GET',
-        url: '/fund?playerId=p2&points=300'
+        url: '/fund?playerId=P2&points=300'
       }).then((response) => {
         return Code.expect(response.statusCode).to.equal(200)
       })
     });
 
-    it('Deposit 300 to p3 ::', () => {
+    it('Deposit 300 to P3 ::', () => {
       return server.inject({
         method: 'GET',
-        url: '/fund?playerId=p3&points=300'
+        url: '/fund?playerId=P3&points=300'
       }).then((response) => {
         return Code.expect(response.statusCode).to.equal(200)
       })
     });
 
-    it('Deposit 500 to p4 ::', () => {
+    it('Deposit 500 to P4 ::', () => {
       return server.inject({
         method: 'GET',
-        url: '/fund?playerId=p4&points=500'
+        url: '/fund?playerId=P4&points=500'
       }).then((response) => {
         return Code.expect(response.statusCode).to.equal(200)
       })
     });
 
-    it('Deposit 1000 to p5 ::', () => {
+    it('Deposit 1000 to P5 ::', () => {
       return server.inject({
         method: 'GET',
-        url: '/fund?playerId=p5&points=1000'
+        url: '/fund?playerId=P5&points=1000'
       }).then((response) => {
         return Code.expect(response.statusCode).to.equal(200)
       })
@@ -159,7 +159,7 @@ describe('Functional :: test tournament flow ', () => {
     it(':: Join Player 5 ::', () => {
       return server.inject({
         method: 'GET',
-        url: '/joinTournament?tournamentId=1&playerId=p5'
+        url: '/joinTournament?tournamentId=1&playerId=P5'
       }).then((response) => {
         return Code.expect(response.statusCode).to.equal(200)
       })
@@ -168,7 +168,7 @@ describe('Functional :: test tournament flow ', () => {
     it(':: Join Player 1 with backers  ::', () => {
       return server.inject({
         method: 'GET',
-        url: '/joinTournament?tournamentId=1&playerId=p1&backerId=p2&backerId=p3&backerId=p4'
+        url: '/joinTournament?tournamentId=1&playerId=P1&backerId=P2&backerId=P3&backerId=P4'
       }).then((response) => {
         return Code.expect(response.statusCode).to.equal(200)
       })
@@ -184,7 +184,7 @@ describe('Functional :: test tournament flow ', () => {
         payload: JSON.stringify({
           "tournamentId": 1,
           "winners": [{
-            "playerId": "p1",
+            "playerId": "P1",
             "prize": 2000
           }]
         })
@@ -200,18 +200,18 @@ describe('Functional :: test tournament flow ', () => {
     it('Get player 1', () => {
       return server.inject({
         method: 'GET',
-        url: '/balance?playerId=p1'
+        url: '/balance?playerId=P1'
       }).then((response) => {
-        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'p1', balance: 550 })
+        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'P1', balance: 550 })
       })
     });
 
     it('Get player 2', () => {
       return server.inject({
         method: 'GET',
-        url: '/balance?playerId=p2'
+        url: '/balance?playerId=P2'
       }).then((response) => {
-        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'p2', balance: 550 })
+        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'P2', balance: 550 })
       })
     });
 
@@ -219,9 +219,9 @@ describe('Functional :: test tournament flow ', () => {
     it('Get player 3', () => {
       return server.inject({
         method: 'GET',
-        url: '/balance?playerId=p3'
+        url: '/balance?playerId=P3'
       }).then((response) => {
-        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'p3', balance: 550 })
+        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'P3', balance: 550 })
       })
     });
 
@@ -229,9 +229,9 @@ describe('Functional :: test tournament flow ', () => {
     it('Get player 4', () => {
       return server.inject({
         method: 'GET',
-        url: '/balance?playerId=p4'
+        url: '/balance?playerId=P4'
       }).then((response) => {
-        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'p4', balance: 750 })
+        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'P4', balance: 750 })
       })
     });
 
@@ -239,9 +239,9 @@ describe('Functional :: test tournament flow ', () => {
     it('Get player 5', () => {
       return server.inject({
         method: 'GET',
-        url: '/balance?playerId=p5'
+        url: '/balance?playerId=P5'
       }).then((response) => {
-        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'p5', balance: 0 })
+        return Code.expect(response.result).to.be.a.object().and.to.include({ playerId: 'P5', balance: 0 })
       })
     });
 
